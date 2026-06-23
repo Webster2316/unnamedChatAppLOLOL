@@ -49,10 +49,10 @@ function addMessage(msg) {
 
   const username = msg.user?.username || "User";
 
-  // 💡 decide avatar
+  // decide avatar
   let avatarUrl;
 
-  if (msg.user?.messagesSentCount < 3) {
+if ((msg.user?.messagesSentCount ?? 0) < 4) {
     avatarUrl = "../assets/icons/lockedPfp.png";
   } else if (msg.user?.profilePic) {
     avatarUrl = msg.user.profilePic;
