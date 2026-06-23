@@ -14,14 +14,16 @@ module.exports.getRecentMessages = async () => {
   return prisma.chatroomMessage.findMany({
     where: { createdAt: { gte: sevenDaysAgo } }, // only messages in last 7 days
     orderBy: { createdAt: "asc" }, // oldest first
-    include: { user: { select: { username: true, profilePicUrl: true } } } // include basic user info
+    include: { user: { select: { username: true, profilePicUrl: true,
+      messagesSentCount: true  } } } // include basic user info
   });
 };
 
 module.exports.createMessage = (userId, content) => {
   return prisma.chatroomMessage.create({
     data: { userId, content },
-    include: { user: { select: { username: true, profilePicUrl: true } } }
+    include: { user: { select: { username: true, profilePicUrl: true,
+      messagesSentCount: true  } } }
   });
 };
 // ============================
