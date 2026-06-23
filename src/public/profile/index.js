@@ -396,7 +396,7 @@ function renderPfp(user) {
 
   if (!img) return;
 
-  const locked = (user.messagesSentCount ?? 0) < 3;
+  const locked = (user.messagesSentCount ?? 0) < 4);
 
   if (locked) {
     img.src = "../assets/icons/lockedPfp.png";
