@@ -32,7 +32,7 @@ for (let i = 0; i < STAR_COUNT; i++) {
   vy: rand(-0.05, 0.05), // vertical speed
 
   a: rand(0.3, 1),          // brightness
-  twinkleSpeed: rand(0.005, 0.02), 
+  twinkleSpeed: rand(0.001, 0.003), 
   twinkleDir: Math.random() > 0.5 ? 1 : -1
 });
 }
