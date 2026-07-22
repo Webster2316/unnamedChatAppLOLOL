@@ -2,7 +2,7 @@
     // 1)lines
 const lines = [
   "Welcome, traveller!",
-  "Congratulations!\n You have been elected to be apart of the Earth's new space exploration program.",
+  "Congratulations!\n You have been selected to be apart of the Earth's new space exploration program.",
   "As the Earth's atmosphere is rapidly deteriorating,\n you and a few other selected individuals have been tasked with this once in a lifetime opportunity to explore the galaxy and find a new home for humanity. ",
   "\n And of course, you'll be sailing through sectors no space equipment has ever discovered before so you may encounter new planets and even new life forms!",
   "But fret not, as you venture through the majestic, starlit ocean of infinite space, you'll have your crewmates along the way to lean on throughout your journey. Still do proceed with cation, you'll never know what you might encounter out there. ",
