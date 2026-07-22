@@ -1,3 +1,19 @@
+//Check for exiting User
+async function checkSession() {
+  try {
+    const res = await fetch("https://soloprojecttest.onrender.com/api/session", {
+      method: "GET",
+      credentials: "include"
+    });
+
+    if (res.status === 200) {
+      window.location.replace("https://solo-project-test.vercel.app/index.html");
+      return;
+    }
+  } catch (err) {
+    console.error("Failed to check session:", err);
+  }
+}
 
 //==================================================================
 //create user
