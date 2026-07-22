@@ -1,5 +1,21 @@
+//Check session
+async function checkSession() {
+  try {
+    const res = await fetch("https://soloprojecttest.onrender.com/api/session", {
+      method: "GET",
+      credentials: "include"
+    });
 
-    // 1)lines
+    if (res.status === 200) {
+      window.location.replace("https://solo-project-test.vercel.app/index.html");
+      return;
+    }
+  } catch (err) {
+    console.error("Failed to check session:", err);
+  }
+}
+
+// 1)lines
 const lines = [
   "Welcome, traveller!",
   "Congratulations!\n You have been selected to be apart of the Earth's new space exploration program.",
