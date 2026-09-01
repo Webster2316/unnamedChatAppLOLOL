@@ -2,11 +2,11 @@
 html, body {
   margin: 0;
   height: 100%;
-   overflow:hidden;
-    font-family: "Press Start 2P", cursive;
+  overflow: hidden;
+  font-family: "Press Start 2P", cursive;
 }
 
-#stars{
+#stars {
   position: fixed;
   inset: 0;
   width: 100vw;
@@ -16,7 +16,7 @@ html, body {
   z-index: -1; /* stays behind everything */
 }
 
-body{
+body {
   font-family: 'Press Start 2P';
   background: #0b0f1a;
   color: white;
@@ -24,10 +24,11 @@ body{
   display: grid;
   place-items: center;
 }
-.character img{
-     position: absolute;
+
+.character img {
+  position: absolute;
   bottom: 50px;
-    left: 10%;
+  left: 10%;
   height: 555px;
   animation: drift 10s ease-in-out infinite;
 }
@@ -38,25 +39,25 @@ body{
   50%  { transform: translateY(0); }
   75%  { transform: translateY(15px); }
   100% { transform: translateY(0); }
-    
 }
 
-.home-screen{
-    position: relative;
-    width:100vw;
-    height:100vh;
-    z-index:1;
-}
-.scene-layer{
-    position:absolute;
-    inset:0;
-}
-.ui-layer{
-    position:absolute;
-    inset:0;
-    z-index:2;
+.home-screen {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
 }
 
+.scene-layer {
+  position: absolute;
+  inset: 0;
+}
+
+.ui-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+}
 
 .top-bar {
   position: absolute;
@@ -82,6 +83,7 @@ body{
   min-width: 200px;
   text-align: center;
 }
+
 .usernameBox {
   cursor: pointer;
   font-size: 12px;
@@ -120,113 +122,88 @@ body{
   opacity: 1;
 }
 
+.floating-btn {
+  position: absolute;
+  width: 80px;
+  height: 80px;
 
+  border-radius: 50%;
+  border: none;
 
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(6px);
 
-.floating-btn{
-   position:absolute;
-    width:80px;
-    height:80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-    border-radius:50%;
-    border:none;
-
-    background:rgba(255,255,255,0.1);
-    backdrop-filter: blur(6px);
-
-    display:flex;
-    justify-content:center;
-    align-items:center;
-
-    cursor:pointer;
-    
+  cursor: pointer;
 }
 
-.chatroom{
-    width:160px;
-    height:160px;
-
-    position:absolute;
-
-    top:50%;
-    left:65%;
-
-    transform:translate(-50%,-50%);
-}
+/* ---- Chatroom button (centered on 50%,65%) ---- */
 .floating-btn.chatroom {
   position: absolute;
   top: 50%;
   left: 65%;
-  transform: translate(-1%, -1%);
+  transform: translate(-50%, -50%);
   width: 160px;
   height: 160px;
   border-radius: 50%;
   cursor: pointer;
   z-index: 10; /* ensures it's above rings */
 }
+
+.floating-btn.chatroom:hover {
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
 .outer-ring,
 .orbit-ring,
 .chatroom-core,
 .chat-icon {
   pointer-events: none;
 }
-.chatroom-core{
-    width:110px;
-    height:110px;
 
-    background:rgba(0,0,0,0.6);
+.chatroom-core {
+  width: 110px;
+  height: 110px;
 
-    border-radius:50%;
-    border:3px solid white;
+  background: rgba(0,0,0,0.6);
 
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
+  border-radius: 50%;
+  border: 3px solid white;
 
-    color:white;
-    font-size:9px;
-    font-family: "Press Start 2P", cursive;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 
-    position:relative;
-    z-index:2;
+  color: white;
+  font-size: 9px;
+  font-family: "Press Start 2P", cursive;
+
+  position: relative;
+  z-index: 2;
+
+  animation: floatBob 4s ease-in-out infinite;
 }
 
-.dm{
-         width:70px;
-    height:70px;
-    position:absolute;
-
-    top:0;
-    left:90%;
-
-
-
-    transform:translateX(-50%);
+@keyframes floatBob {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-8px); }
 }
 
-.avatar{
-      width:100px;
-    height:100px;
-    position:absolute;
-
-    bottom:0;
-    left:75%;
-
-    background:rgba(255,255,255,0.15);
-
-    border:2px solid rgba(150,220,255,0.7);
-
-    box-shadow:
-        0 0 8px rgba(150,220,255,0.5),
-        inset 0 0 6px rgba(150,220,255,0.4);
-
-
-    transform:translateX(-50%);
+/* ---- Orbit ring container (single source of truth) ---- */
+.orbit {
+  position: absolute;
+  top: 50%;
+  left: 65%;
+  width: 230px;
+  height: 230px;
+  transform: translate(-50%, -50%);
+  --start: 0deg; /* overwritten per-element by JS */
 }
-.chatroom:hover{
-    transform:scale(1.1);
-}
+
 .orbit button {
   position: absolute;
   top: 50%;
@@ -234,68 +211,76 @@ body{
   transform-origin: center;
 }
 
-.orbit{
-    position:absolute;
-
-    top:50%;
-    left:65%;
-
-    width:230px;
-    height:230px;
-
-    transform:translate(-50%,-50%);
+/* random spawn point on the circle, driven by --start */
+.dm,
+.avatar {
+  width: 70px;
+  height: 70px;
+  transform: rotate(var(--start)) translate(115px) rotate(calc(-1 * var(--start)));
 }
+
 .dm {
-  transform: rotate(0deg) translate(115px) rotate(0deg);
+  width: 70px;
+  height: 70px;
 }
 
 .avatar {
-  transform: rotate(180deg) translate(115px) rotate(0deg);
-}
-.orbit-ring{
-    position:absolute;
+  width: 100px;
+  height: 100px;
 
-    width:200px;
-    height:200px;
+  background: rgba(255,255,255,0.15);
 
-    border-radius:50%;
-    border:2px solid rgba(150,220,255,0.7);
+  border: 2px solid rgba(150,220,255,0.7);
 
-    display:flex;
-    justify-content:center;
-    align-items:flex-start;
-
-    animation: spin 14s linear infinite;
-}
-.orbit-text{
-    position:absolute;
-
-    top:-8px;
-
-    font-size:8px;
-    font-family: "Press Start 2P", cursive;
-    letter-spacing:2px;
-
-    color:#9bdcff;
-
-    text-shadow:
-        0 0 6px rgba(120,200,255,0.9),
-        0 0 14px rgba(120,200,255,0.6);
-}
-.outer-ring{
-    position:absolute;
-
-    width:180px;
-    height:180px;
-
-    border-radius:50%;
-    border:3px solid rgba(120,200,255,0.4);
-
-    box-shadow:
-        0 0 12px rgba(120,200,255,0.6),
-        inset 0 0 8px rgba(120,200,255,0.4);
+  box-shadow:
+    0 0 8px rgba(150,220,255,0.5),
+    inset 0 0 6px rgba(150,220,255,0.4);
 }
 
+.orbit-ring {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+
+  border-radius: 50%;
+  border: 2px solid rgba(150,220,255,0.7);
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+
+  animation: spin 14s linear infinite;
+}
+
+.orbit-text {
+  position: absolute;
+  top: -8px;
+
+  font-size: 8px;
+  font-family: "Press Start 2P", cursive;
+  letter-spacing: 2px;
+
+  color: #9bdcff;
+
+  text-shadow:
+    0 0 6px rgba(120,200,255,0.9),
+    0 0 14px rgba(120,200,255,0.6);
+}
+
+.outer-ring {
+  position: absolute;
+  width: 180px;
+  height: 180px;
+
+  border-radius: 50%;
+  border: 3px solid rgba(120,200,255,0.4);
+
+  box-shadow:
+    0 0 12px rgba(120,200,255,0.6),
+    inset 0 0 8px rgba(120,200,255,0.4);
+}
+
+/* per-element spin direction/speed set inline by JS via style.animationName/Duration */
 .orbit-dm {
   animation: orbitSpin 40s linear infinite;
 }
@@ -303,32 +288,20 @@ body{
 .orbit-avatar {
   animation: orbitSpinReverse 55s linear infinite;
 }
-@keyframes spin{
-    from{
-        transform:rotate(0deg);
-    }
-    to{
-        transform:rotate(360deg);
-    }
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
 }
 
-
-@keyframes orbitSpin{
-    from{
-        transform:translate(-50%,-50%) rotate(0deg);
-    }
-    to{
-        transform:translate(-50%,-50%) rotate(360deg);
-    }
+@keyframes orbitSpin {
+  from { transform: translate(-50%, -50%) rotate(var(--start)); }
+  to   { transform: translate(-50%, -50%) rotate(calc(var(--start) + 360deg)); }
 }
 
-@keyframes orbitSpinReverse{
-    from{
-        transform:translate(-50%,-50%) rotate(360deg);
-    }
-    to{
-        transform:translate(-50%,-50%) rotate(0deg);
-    }
+@keyframes orbitSpinReverse {
+  from { transform: translate(-50%, -50%) rotate(var(--start)); }
+  to   { transform: translate(-50%, -50%) rotate(calc(var(--start) - 360deg)); }
 }
 
 /* dropup menu */
@@ -353,7 +326,7 @@ body{
 
 .btn-group.dropup .dropdown-item {
   color: #0e5a84;
-   font-size: 12px;
+  font-size: 12px;
 }
 
 .btn-group.dropup .dropdown-item:hover {
