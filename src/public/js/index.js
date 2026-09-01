@@ -40,6 +40,18 @@ console.log("Daily transmissions:", dataGrant.transmissions);
 }
 
 checkSession();
+document.querySelectorAll('.orbit').forEach(el => {
+  const randomAngle = Math.floor(Math.random() * 360);
+  el.style.setProperty('--start', `${randomAngle}deg`);
+
+  const goClockwise = Math.random() < 0.5;
+  const animName = goClockwise ? 'orbitSpin' : 'orbitSpinReverse';
+  const duration = 30 + Math.random() * 30; // 30-60s
+
+  el.classList.remove('orbit-dm', 'orbit-avatar');
+  el.style.animation = `${animName} ${duration}s linear infinite`;
+});
+
 async function fetchUserInfo() {
   try {
     const res = await fetch("https://soloprojecttest.onrender.com/api/users/me", {
